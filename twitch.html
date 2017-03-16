@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Twitch.TV APP</title>
+        <!-- Css Files -->
+        <link href="twitch.css"  rel="stylesheet" type="text/css" link>
+    
+        <!-- Bootstrap CDN-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <!-- Jquery CDN-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1> Twitch.TV App</h1>
+        <div class="container">
+            <div id="titles">
+            
+            
+            </div>
+        </div>
+        <script type="text/javascript">
+            
+        var url = 'https://wind-bow.gomix.me/twitch-api/teams?callback=?';
+        var url1 = 'https://wind-bow.gomix.me/twitch-api/streams/featured?callback=?';    
+        //var featuredPrograms = [];    
+            //        var url ='https://api.twitch.tv/kraken/streams/freecodecamp?callback=?';
+            
+        $.getJSON(url1,function(data) {  
+            console.log(data);
+            console.log(data.featured);
+            console.log(data.featured[0].stream.channel.url);
+            console.log(data.featured[0].stream.channel.followers);
+            
+            //console.log(data.featured[0].title);
+            //console.log(data.featured.length);
+            //LOOP THRHOUGH FEATURED ARRAY AND STORE TITLES
+            for (var i = 0; i < data.featured.length;i++){
+                console.log(data.featured[i].title); 
+                //Populate html
+                $("#titles").append('<h2>'+ data.featured[i].title + '</h2>');
+                $("#titles").append('<img src="' + data.featured[i].image + '">');
+                $("#titles").append('<a href="' + data.featured[i].stream.channel.url +'" target="_blank">Go to channel</a>');
+                $("#titles").append('<p>Number of followers: '+ data.featured[i].stream.channel.followers + '</p>');
+                
+//                $("#titles").append('<p>' + data.featured[i].stream)
+                
+            }
+            
+        });
+            
+        </script>
+        
+        </script>
+        <!-- Bootstrap & Jquery Scripts-->   
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        
+    </body>
+</html>
