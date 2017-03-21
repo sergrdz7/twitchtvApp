@@ -1,0 +1,13 @@
+.jumbotron{
+    background-color:#a277af; 
+}
+.col-colors{
+    padding-top: 10px;
+    background-color: white; 
+    margin-bottom: 25px;
+    border-left: 2px solid #f1c1ff;
+}
+.btn-position{
+    position:relaive; 
+    bottom: 20px;
+}
