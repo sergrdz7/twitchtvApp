@@ -1,13 +1,54 @@
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+    color:#be8ccd;
+}
 .jumbotron{
-    background-color:#a277af; 
+    background-color:#775881;
+}
+.jumbotron h1{
+    color: white;
+    font-size: 4em;
+    font-weight: bold;
+    text-shadow: 3px 3px #b997c4;
+}
+.headings{
+    margin-bottom: 30px; 
 }
 .col-colors{
     padding-top: 10px;
     background-color: white; 
     margin-bottom: 25px;
     border-left: 2px solid #f1c1ff;
+    text-align: left: 
 }
-.btn-position{
-    position:relaive; 
-    bottom: 20px;
+.col-colors h4{
+    font-size: 1.25em;
+}
+p{
+    padding-top: 12px; 
+}
+
+/*Customize buttons*/
+.btn.outline {
+	background: none;
+	padding: 10px 20px;
+}
+.btn-primary.outline {
+	border: 2px solid #f1c1ff;
+	color: #f1c1ff;
+}
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+	color: #775881;
+	border-color: #775881;
+}
+.btn-primary.outline:active, .btn-primary.outline.active {
+	border-color: #b644db;
+	color: #b644db;
+	box-shadow: none;
+}
+
+/*Search container*/
+#searchContainer{
+    
+    margin-bottom: 100px;
 }

@@ -12,107 +12,110 @@
         
          <!-- Css Files -->
         <link href="twitch.css"  rel="stylesheet" type="text/css" link>
-        
-        <!-- Jquery CDN-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+<!--         Jquery CDN-->
+        <script type="text/javascript" src="jquery-3.1.0.min.js"></script> 
     </head>
     <body>
         
-        
+   
         <div class="jumbotron text-center">
-            <h1> Twitch.TV App</h1>
+            <h1><i class="fa fa-twitch" style="font-size:1.5em;"></i> Twitch.TV App</h1>
         </div>
             <div class="container">
+                <h3 class="headings">Featured Channels <i class="fa fa-rss" aria-hidden="true"></i> </h3>
                 <div id="titles" class="row">
-<!--                    <div id="titles">-->
-<!--
-                        <div class="col-lg-4 col-sm-6">
-                            
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[1]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[2]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[3]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[4]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[5]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[6]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[7]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[8]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[9]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[10]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[11]"></div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div id="item[12]"></div>
-                        </div>
--->
-<!--                </div>        -->
-
             </div>   
-        </div>        
-<!--        <div id="titles"></div>    -->
+        </div> <!-- END OF JUMBOTRON-->
+        
+        </hr>
+    
+        <div class="container" id="searchContainer">
+            <h2>Search for a channel:</h2>
+            <!-- SEARCH FORM-->
+            <div class="row"> 
+              <div class="col-md-12 col-lg-12">
+                <div class="input-group text-center">
+                    <input class="form-control" id="input" type="text" name="search" placeholder="Search a wiki article...">
+                    <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-success" type="button">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </div>
+              </div> 
+            </div><!--END OF FORM-->
+        </div><!--END OF searchContainer-->
+        
+        <div class="container">
+            <div class = "row">
+                <div class ="col-lg-12 col-md-12">
+                    <p id="results"></p>
+                </div>    
+            </div>    
+        </div>
+
         <script type="text/javascript">
+        
+            //Name: TwitchTV API App        
+        
+        var url = 'https://wind-bow.gomix.me/twitch-api/streams/featured?callback=?';    
+        var clientID ="4p0c2fxilivn916bs0dqeie78o8qx3";
+        var twitchUrl = "https://api.twitch.tv/kraken/channels?client_id="+clientID;
+        
+        $.getJSON(url,function(data) {  
+
+            //LOOP THROUGH FEATURED ARRAY AND STORE TITLES
+            for (var i = 0; i < data.featured.length;i++){                
+                
+                //POPULATE HTML(IMAGE THUMBNAILS)        
+                $("#titles").append('<div class="text-center col-lg-3 col-md-4 col-sm-6 col-colors"><h4>'+ data.featured[i].title + '</h4><img class=" img-thumbnail" src="' + data.featured[i].image + '"><p class="p-thumbnail">Followers: '+ data.featured[i].stream.channel.followers + '</p><p class="btn-position"><a href="' + data.featured[i].stream.channel.url +'" class="btn btn-primary outline" role="button" target="_blank">Go to channel <i class="fa fa-video-camera" aria-hidden="true"></i></a></p></div>');
+            }  
+        });
+    
+        function getStatus(channel){
+            $.getJSON("https://api.twitch.tv/kraken/streams/"+channel+"?client_id="+clientID).done(function(data2){
+                console.log(data2.stream);
+            });
+        }    
+        
+        function getChannelInfo(channel){
+            $.getJSON("https://api.twitch.tv/kraken/channels/"+channel+"?client_id="+clientID).done(function(data3){
+                console.log(data3);
+                var link = data3.url;
+                var title= data3.display_name; 
+                var img = data3.logo;
+                var followers = data3.followers; 
+                
+                
+            });
+        }
+        
+        $("#searchBtn").on('click',function(){
             
-        var url = 'https://wind-bow.gomix.me/twitch-api/teams?callback=?';
-        var url1 = 'https://wind-bow.gomix.me/twitch-api/streams/featured?callback=?';    
-        //var featuredPrograms = [];    
-            //        var url ='https://api.twitch.tv/kraken/streams/freecodecamp?callback=?';
-            
-        $.getJSON(url1,function(data) {  
-            console.log(data);
-            console.log(data.featured);
-            console.log(data.featured[0].stream.channel.url);
-            console.log(data.featured[0].stream.channel.followers);
-            
-            //console.log(data.featured[0].title);
-            //console.log(data.featured.length);
-            //LOOP THRHOUGH FEATURED ARRAY AND STORE TITLES
-            for (var i = 0; i < data.featured.length;i++){
-                console.log(data.featured[i].title); 
-                console.log("item["+ i + "]")
-                
-                //Populate html
-                //$("#titles").append('<h2>'+ data.featured[i].title + '</h2>');
-               
-                $("#titles").append('<div class="text-center col-lg-3 col-md-4 col-sm-6 col-colors"><h4>'+ data.featured[i].title + '</h4><img class=" img-thumbnail" src="' + data.featured[i].image + '"><p>Followers: '+ data.featured[i].stream.channel.followers + '</p><p class="btn-position"><a href="' + data.featured[i].stream.channel.url +'" class="btn btn-primary" role="button" target="_blank">Go to channel</a></p></div>');
-                
-                //$("#titles").append('<a href="' + data.featured[i].stream.channel.url +'" target="_blank">Go to channel</a>');
-                
-                //$("#titles").append('<p>Number of followers: '+ data.featured[i].stream.channel.followers + '</p>');
-                
-//                $("#titles").append('<p>' + data.featured[i].stream)
-                
-            }
-            
+            var channel = $("#input").val().split(" ").join("");    
+            getStatus(channel);
+            getChannelInfo(channel);
         });
             
+        $("#input").keydown(function(event){
+        if(event.keyCode == 13){
+            var channel = $("#input").val().split(" ").join("");
+            getStatus(channel);
+            getChannelInfo(channel);
+        }
+        
+    });    
+             
             </script>
         
         </script>
         
     
-    <!-- Bootstrap & Jquery Scripts-->   
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<!-- Bootstrap & Jquery Scripts-->   
+<!--        <script type="text/javascript" src="jquery-3.1.0.min.js"></script> -->
+<!--        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         
