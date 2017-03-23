@@ -48,10 +48,13 @@
             </div><!--END OF FORM-->
         </div><!--END OF searchContainer-->
         
-        <div class="container">
+        <div id="results" class="container">
             <div class = "row">
                 <div class ="col-lg-12 col-md-12">
-                    <p id="results"></p>
+                    <div id="results-title"></div>
+                    <div id="results-image"></div>
+                    <div id="results-followers"></div>
+                    <div id="results-status"></div>
                 </div>    
             </div>    
         </div>
@@ -73,36 +76,52 @@
                 $("#titles").append('<div class="text-center col-lg-3 col-md-4 col-sm-6 col-colors"><h4>'+ data.featured[i].title + '</h4><img class=" img-thumbnail" src="' + data.featured[i].image + '"><p class="p-thumbnail">Followers: '+ data.featured[i].stream.channel.followers + '</p><p class="btn-position"><a href="' + data.featured[i].stream.channel.url +'" class="btn btn-primary outline" role="button" target="_blank">Go to channel <i class="fa fa-video-camera" aria-hidden="true"></i></a></p></div>');
             }  
         });
-    
+        
+        //GET STREAMING STATUS OF CURRENT CHANNEL    
         function getStatus(channel){
             $.getJSON("https://api.twitch.tv/kraken/streams/"+channel+"?client_id="+clientID).done(function(data2){
-                console.log(data2.stream);
+                console.log("Status: "+ data2.stream);
+                if (data2.stream === null) {
+                    $("#results-status").prepend('</p>Status: Offline</p>');
+                    online = false;
+                   }else {
+                    $("#results-status").prepend('</p>Status: Online</p>');
+                    online = true; 
+                   } 
             });
         }    
-        
+            
+        //USE CHANNEL INFO TO UPDATE SEARCH SECTION
         function getChannelInfo(channel){
             $.getJSON("https://api.twitch.tv/kraken/channels/"+channel+"?client_id="+clientID).done(function(data3){
                 console.log(data3);
                 var link = data3.url;
                 var title= data3.display_name; 
                 var img = data3.logo;
-                var followers = data3.followers; 
+                var followers = data3.followers;
+                var online = true; 
+                //$("#results").html('');
+                $("#results-title").prepend('<h3><a href="'+link+'"></a>'+title+'</h3>');
+                $("#results-image").prepend('<p><img class="img-thumbnail" src="'+img+'"></p>');
+                $("#results-followers").prepend('<p>Followers: '+followers+'</p>');
+                //$("#results").prepend('<p><a href="'+link+'"></a></p>');
                 
-                
+                //UPDATE STREAMING STATUS
+                getStatus(channel);
             });
         }
         
         $("#searchBtn").on('click',function(){
             
             var channel = $("#input").val().split(" ").join("");    
-            getStatus(channel);
+            //getStatus(channel);
             getChannelInfo(channel);
         });
             
         $("#input").keydown(function(event){
         if(event.keyCode == 13){
             var channel = $("#input").val().split(" ").join("");
-            getStatus(channel);
+            //getStatus(channel);
             getChannelInfo(channel);
         }
         
