@@ -11,6 +11,7 @@ body{
     font-weight: bold;
     text-shadow: 3px 3px #b997c4;
 }
+
 .headings{
     margin-bottom: 30px; 
 }
@@ -38,8 +39,8 @@ p{
 	color: #f1c1ff;
 }
 .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
-	color: #775881;
-	border-color: #775881;
+	color: #3f2e44;
+	border-color: #3f2e44;
 }
 .btn-primary.outline:active, .btn-primary.outline.active {
 	border-color: #b644db;
@@ -48,7 +49,33 @@ p{
 }
 
 /*Search container*/
-#searchContainer{
-    
-    margin-bottom: 100px;
+.searchContainer{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    color: #f1c1ff;
+    font-size: 16px; 
 }
+.searchContainer h2{
+    margin-top: 30px;
+    text-decoration: none;    
+}
+.searchContainer h2{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-decoration: none;   
+}
+.searchContainer a{
+    text-decoration: none;
+    color: #f1c1ff;
+}
+.searchContainer a:hover{
+    color: #ae74be;
+}
+.border-left{
+    border-left: 3px solid #f1c1ff; 
+}
+
+.container-fluid{
+    background-color: #775881; 
+}
+.form-control::-webkit-input-placeholder { color: #c2c2c2; }

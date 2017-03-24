@@ -14,12 +14,10 @@
         <link href="twitch.css"  rel="stylesheet" type="text/css" link>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
-<!--         Jquery CDN-->
+        <!-- Jquery CDN-->
         <script type="text/javascript" src="jquery-3.1.0.min.js"></script> 
     </head>
     <body>
-        
-   
         <div class="jumbotron text-center">
             <h1><i class="fa fa-twitch" style="font-size:1.5em;"></i> Twitch.TV App</h1>
         </div>
@@ -28,41 +26,46 @@
                 <div id="titles" class="row">
             </div>   
         </div> <!-- END OF JUMBOTRON-->
-        
-        </hr>
     
-        <div class="container" id="searchContainer">
-            <h2>Search for a channel:</h2>
-            <!-- SEARCH FORM-->
-            <div class="row"> 
-              <div class="col-md-12 col-lg-12">
-                <div class="input-group text-center">
-                    <input class="form-control" id="input" type="text" name="search" placeholder="Search a wiki article...">
-                    <span class="input-group-btn">
-                        <button id="searchBtn" class="btn btn-success" type="button">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                    </span>
-                </div>
-              </div> 
-            </div><!--END OF FORM-->
-        </div><!--END OF searchContainer-->
+        <div class="container-fluid" >
+            <div class="container searchContainer">
+                <h2>Search for a channel:</h2> 
+                <div id="results-error"></div> <!--DISPLAY ERROR MSG-->
+                <!-- SEARCH FORM-->
+                <div class="row"> 
+                  <div class="col-md-12 col-lg-12">
+                    <div class="input-group text-center">
+                        <input class="form-control" id="input" type="text" name="search" placeholder="eg. free code camp">
+                        <span class="input-group-btn">
+                            <button id="searchBtn" class="btn btn-warning" type="button">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                  </div> 
+                </div><!--END OF FORM-->
+            </div><!--END OF CONTAINER-->
+            
+            <div class="container searchContainer">
+                
+                <div class = "row">
+                    <div class ="col-lg-6 col-md-6 text-center border-left">
+                        <div id="results-image"></div>
+                    </div>     
+                    <div class ="col-lg-6 col-md-6 text-left ">
+                            <div id="results-title"></div>
+                            <div id="results-followers"></div>
+                            <div id="results-status"></div>
+                    </div>
+            </div>   
+            
+        </div><!--END OF CONTAINER FLUID-->
         
-        <div id="results" class="container">
-            <div class = "row">
-                <div class ="col-lg-12 col-md-12">
-                    <div id="results-title"></div>
-                    <div id="results-image"></div>
-                    <div id="results-followers"></div>
-                    <div id="results-status"></div>
-                </div>    
-            </div>    
-        </div>
+        
 
         <script type="text/javascript">
         
-            //Name: TwitchTV API App        
-        
+        //GLOABALS
         var url = 'https://wind-bow.gomix.me/twitch-api/streams/featured?callback=?';    
         var clientID ="4p0c2fxilivn916bs0dqeie78o8qx3";
         var twitchUrl = "https://api.twitch.tv/kraken/channels?client_id="+clientID;
@@ -72,7 +75,7 @@
             //LOOP THROUGH FEATURED ARRAY AND STORE TITLES
             for (var i = 0; i < data.featured.length;i++){                
                 
-                //POPULATE HTML(IMAGE THUMBNAILS)        
+                //POPULATE FEATURED CHANNELS HTML(IMAGE THUMBNAILS)        
                 $("#titles").append('<div class="text-center col-lg-3 col-md-4 col-sm-6 col-colors"><h4>'+ data.featured[i].title + '</h4><img class=" img-thumbnail" src="' + data.featured[i].image + '"><p class="p-thumbnail">Followers: '+ data.featured[i].stream.channel.followers + '</p><p class="btn-position"><a href="' + data.featured[i].stream.channel.url +'" class="btn btn-primary outline" role="button" target="_blank">Go to channel <i class="fa fa-video-camera" aria-hidden="true"></i></a></p></div>');
             }  
         });
@@ -80,58 +83,66 @@
         //GET STREAMING STATUS OF CURRENT CHANNEL    
         function getStatus(channel){
             $.getJSON("https://api.twitch.tv/kraken/streams/"+channel+"?client_id="+clientID).done(function(data2){
-                console.log("Status: "+ data2.stream);
+                console.log("Status: " + data2.stream);
                 if (data2.stream === null) {
-                    $("#results-status").prepend('</p>Status: Offline</p>');
-                    online = false;
+                    $("#results-status").prepend('</p>Status: Offline  <i class="fa fa-times-circle" aria-hidden="true"></i></p>');
                    }else {
-                    $("#results-status").prepend('</p>Status: Online</p>');
-                    online = true; 
+                    $("#results-status").prepend('</p>Status: Online  <i class="fa fa-check-circle" aria-hidden="true"></i></p>'); 
                    } 
             });
+        } 
+        
+        //USE THIS FUNCTION TO CLEAR DATA FROM SEARCH SECTION    
+        function clearInfo(){
+            $("#results-title").html('');
+            $("#results-image").html('');
+            $("#results-followers").html('');
+            $("#results-status").html('');
+            $("#results-error").html('');
+            
         }    
             
         //USE CHANNEL INFO TO UPDATE SEARCH SECTION
         function getChannelInfo(channel){
             $.getJSON("https://api.twitch.tv/kraken/channels/"+channel+"?client_id="+clientID).done(function(data3){
-                console.log(data3);
-                var link = data3.url;
-                var title= data3.display_name; 
-                var img = data3.logo;
-                var followers = data3.followers;
-                var online = true; 
-                //$("#results").html('');
-                $("#results-title").prepend('<h3><a href="'+link+'"></a>'+title+'</h3>');
-                $("#results-image").prepend('<p><img class="img-thumbnail" src="'+img+'"></p>');
-                $("#results-followers").prepend('<p>Followers: '+followers+'</p>');
-                //$("#results").prepend('<p><a href="'+link+'"></a></p>');
+                console.log(data3); 
+                $("#results-title").prepend('<a href="'+data3.url+'"><h2>'+data3.display_name+'  <i class="fa fa-video-camera" aria-hidden="true"></i></h2></a>');
+                $("#results-image").prepend('<p><img alt="Channel Logo" src="'+data3.logo+'"></p>');
+                $("#results-followers").prepend('<p>Followers: '+data3.followers+'   <i class="fa fa-users" aria-hidden="true"></i></p>');
                 
-                //UPDATE STREAMING STATUS
+                //CHECK STREAMING STATUS OF CURRENT CHANNEL
                 getStatus(channel);
-            });
+                
+            })
+            //HANDLE JSON CALL ERROR 
+            .fail(function(data3){
+                console.log(data3);
+                $("#results-error").prepend('<p><i class="fa fa-times-circle" aria-hidden="true"></i> Oops! Channel not found, try another one?</p>');
+            })
         }
         
+        //SEARCH EVENT HANDLER ON CLICK    
         $("#searchBtn").on('click',function(){
             
             var channel = $("#input").val().split(" ").join("");    
             //getStatus(channel);
+            clearInfo();
             getChannelInfo(channel);
         });
             
+        //SEARCH EVENT HANDLER ON ENTER     
         $("#input").keydown(function(event){
         if(event.keyCode == 13){
             var channel = $("#input").val().split(" ").join("");
             //getStatus(channel);
+            clearInfo();
             getChannelInfo(channel);
         }
         
     });    
              
             </script>
-        
         </script>
-        
-    
 <!-- Bootstrap & Jquery Scripts-->   
 <!--        <script type="text/javascript" src="jquery-3.1.0.min.js"></script> -->
 <!--        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
