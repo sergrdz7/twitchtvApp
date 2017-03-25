@@ -4,12 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Twitch.TV APP</title>
-       
-    
+        <title>Twitch.TV JSON App</title>
         <!-- Bootstrap CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        
          <!-- Css Files -->
         <link href="twitch.css"  rel="stylesheet" type="text/css" link>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,16 +15,32 @@
         <script type="text/javascript" src="jquery-3.1.0.min.js"></script> 
     </head>
     <body>
-        <div class="jumbotron text-center">
+        <nav class="navbar fixed-top navbar-toggleable-sm navbar-inverse">
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" href="https://www.twitch.tv/"><i class="fa fa-twitch fa-2x" aria-hidden="true"></i></a>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-item nav-link" href="#featured">Featured</a>
+                  <a class="nav-item nav-link" href="#search">Search</a>
+                  <a class="nav-item nav-link" href="#contact">Contact</a>
+                </div>
+              </div>
+        </nav><!--END OF NAVIGATION-->
+        
+        <div id="home" class="jumbotron text-center">
             <h1><i class="fa fa-twitch" style="font-size:1.5em;"></i> Twitch.TV App</h1>
         </div>
-            <div class="container">
-                <h3 class="headings">Featured Channels <i class="fa fa-rss" aria-hidden="true"></i> </h3>
+        
+        <div id="featured" class="container">
+                <h3 class="headings">Online Featured Channels <i class="fa fa-rss" aria-hidden="true"></i> </h3>
                 <div id="titles" class="row">
             </div>   
         </div> <!-- END OF JUMBOTRON-->
     
-        <div class="container-fluid" >
+        <div id="search" class="container-fluid" >
             <div class="container searchContainer">
                 <h2>Search for a channel:</h2> 
                 <div id="results-error"></div> <!--DISPLAY ERROR MSG-->
@@ -35,7 +48,7 @@
                 <div class="row"> 
                   <div class="col-md-12 col-lg-12">
                     <div class="input-group text-center">
-                        <input class="form-control" id="input" type="text" name="search" placeholder="eg. free code camp">
+                        <input class="form-control" id="input" type="text" name="search" placeholder="Search">
                         <span class="input-group-btn">
                             <button id="searchBtn" class="btn btn-warning" type="button">
                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -43,8 +56,8 @@
                         </span>
                     </div>
                   </div> 
-                </div><!--END OF FORM-->
-            </div><!--END OF CONTAINER-->
+                </div><!--END OF SEARCH FORM-->
+            </div><!--END OF SEARCH BAR CONTAINER-->
             
             <div class="container searchContainer">
                 
@@ -57,12 +70,20 @@
                             <div id="results-followers"></div>
                             <div id="results-status"></div>
                     </div>
-            </div>   
-            
-        </div><!--END OF CONTAINER FLUID-->
+                </div>
+            </div><!--END OF SEARC CONTAINER FLUID-->
+        </div> <!--END OF BODY CONTAINER-->
+        
+        <div id="contact" class="container-fluid text-center">
+            <p>Contact</p>
+            <a href="https://github.com/sergrdz7" alt="GitHub" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="https://www.freecodecamp.com/sergrdz7" alt="FreeCodeCamp" target="_blank"><i class="fa fa-free-code-camp fa-2x" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/Serg_io92" alt="Twitter" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a href="http://codepen.io/serg_92/" alt="Codepen" target="_blank"><i class="fa fa-codepen fa-2x" aria-hidden="true"></i></a>
+        </div> <!--END OF CONTACT CONTAINER-->
         
         
-
+        
         <script type="text/javascript">
         
         //GLOABALS
@@ -138,14 +159,10 @@
             clearInfo();
             getChannelInfo(channel);
         }
-        
-    });    
-             
-            </script>
+    });        
         </script>
-<!-- Bootstrap & Jquery Scripts-->   
-<!--        <script type="text/javascript" src="jquery-3.1.0.min.js"></script> -->
-<!--        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
+        
+        <!--BOOTSTRAP & TETHER-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         

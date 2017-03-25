@@ -1,9 +1,18 @@
 body{
+    padding-top: 55px;
     font-family: 'Source Sans Pro', sans-serif;
     color:#be8ccd;
 }
+/*Navigation*/
+nav{
+    background-color: #393939;
+}
+/*Jumbotron*/
 .jumbotron{
+    
     background-color:#775881;
+    border-radius: 0;
+    margin-bottom: -25px;
 }
 .jumbotron h1{
     color: white;
@@ -12,7 +21,14 @@ body{
     text-shadow: 3px 3px #b997c4;
 }
 
+#featured{
+    margin-top: 0; 
+    padding-top: 63px;
+}
+
 .headings{
+    margin-top: 0;
+    padding: 0;
     margin-bottom: 30px; 
 }
 .col-colors{
@@ -50,19 +66,13 @@ p{
 
 /*Search container*/
 .searchContainer{
-    padding-top: 10px;
-    padding-bottom: 20px;
+    padding-top: 20px;
     color: #f1c1ff;
     font-size: 16px; 
 }
 .searchContainer h2{
-    margin-top: 30px;
+    padding-bottom: 20px;
     text-decoration: none;    
-}
-.searchContainer h2{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    text-decoration: none;   
 }
 .searchContainer a{
     text-decoration: none;
@@ -76,6 +86,28 @@ p{
 }
 
 .container-fluid{
-    background-color: #775881; 
+    background-color: #775881;
+    padding-bottom: 7px;
+}
+#contact{
+    color: #F0AD4E;
+    padding-top: 4px;
+    background-color: #393939;
+    height: 67px;
+    margin-bottom: 0;
+}
+#contact p{
+    padding: 1px 0 1px 0; 
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#contact a{
+    color: #F0AD4E;
+    padding: 0 7px 0 7px;
+    text-decoration: none;
+}
+#contact a:hover{
+    color: #af7e39;
+    text-decoration: none;
 }
 .form-control::-webkit-input-placeholder { color: #c2c2c2; }
