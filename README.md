@@ -31,4 +31,4 @@ Hints Provided by freeCodeCamp
 
 [freeCodeCamp Profile]: (https://www.freecodecamp.com/sergrdz7)
 
-See this working project on [Codepen] not yet on codepen
+See this working project on [Codepen](http://codepen.io/serg_92/pen/MpBgPR)
